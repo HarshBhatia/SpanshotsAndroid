@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/cv"
+        style="@style/CardViewStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+
+        android:clickable="false">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/shape_bg_white_rounded_rect"
+            android:orientation="vertical">
+
+
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="240dp">
+
+
+                <VideoView
+                    android:id="@+id/files_mp4"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:onClick="videoPlayFromVideo"
+                    android:drawingCacheQuality="low"
+                    android:layout_gravity="center"
+                    />
+                <ImageView
+                    android:id="@+id/files_jpg"
+                    android:foregroundGravity="center"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:onClick="videoPlayFromImage"
+                    android:layout_gravity="center"
+                    />
+                <ProgressBar
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/spanshotProgressBar"
+                    android:layout_gravity="center"
+                    android:visibility="gone"/>
+            </FrameLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="false"
+                android:gravity="center"
+                android:orientation="vertical">
+
+
+                <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                    android:layout_width="fill_parent"
+                    android:layout_height="fill_parent">
+
+
+                    <TextView
+                        android:id="@+id/username"
+                        android:onClick="viewUser"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:paddingLeft="16dp"
+                        android:paddingRight="49dp"
+                        android:paddingTop="16dp"
+                        android:text="John Wow"
+                        android:textColor="@color/light_blue_A400"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true">
+
+                        <TextView
+                            android:id="@+id/likes_count"
+                            android:layout_width="wrap_content"
+
+                            android:layout_height="wrap_content"
+                            android:paddingLeft="8dp"
+                            android:paddingTop="16dp"
+                            android:text=" 21 Likes  ·  "
+                            android:onClick="viewLikes"
+                            android:textColor="@color/grey_600"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/comments_count"
+                            android:layout_width="wrap_content"
+                            android:onClick="viewComments"
+                            android:layout_height="wrap_content"
+                            android:paddingRight="16dp"
+                            android:paddingTop="16dp"
+                            android:text="14 Comments"
+                            android:textColor="@color/grey_600"
+                            android:textSize="14sp" />
+                    </LinearLayout>
+
+                </RelativeLayout>
+
+                <TextView
+                    android:id="@+id/caption"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="16dp"
+                    android:paddingTop="16dp"
+                    android:text="Hum toh thehre bakru jee ssath kya nibhaayenge lorem lorem"
+                    android:textColor="@color/grey_800"
+                    android:textSize="14sp" />
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="8dp"
+                    android:paddingLeft="16dp"
+                    android:paddingRight="16dp"
+                    android:paddingTop="16dp">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left">
+
+                            <ImageView
+                                android:id="@+id/like_button"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="left"
+                                android:background="@drawable/ripple"
+
+
+                                android:clickable="true"
+
+                                android:onClick="likeSpanshot"
+                                android:padding="4dp"
+
+                                android:src="@drawable/ic_favorite_pink_a400_24dp" />
+                        </FrameLayout>
+
+                        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left">
+
+                            <ImageView
+                                android:id="@+id/comment_button"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="left"
+                                android:layout_marginLeft="10dp"
+                                android:background="@drawable/ripple"
+                                android:clickable="true"
+                                android:padding="4dp"
+                                android:onClick="viewComments"
+                                android:src="@drawable/ic_comment_light_blue_a400_24dp" />
+                        </FrameLayout>
+
+                        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+
+                            >
+
+                            <ImageView
+                                android:id="@+id/share_button"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="left"
+                                android:layout_marginLeft="10dp"
+                                android:background="@drawable/ripple"
+
+                                android:clickable="true"
+                                android:onClick="shareSpanshot"
+                                android:padding="4dp"
+                                android:src="@drawable/ic_share_grey_400_24dp" />
+                        </FrameLayout>
+                        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left"
+
+                            >
+
+                            <ImageView
+                                android:id="@+id/more_options_button"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="left"
+                                android:layout_marginLeft="10dp"
+                                android:background="@drawable/ripple"
+
+                                android:clickable="true"
+                                android:onClick="showMoreOptions"
+                                android:padding="4dp"
+                                android:visibility="invisible"
+                                android:src="@drawable/ic_more_horiz_grey_600_24dp" />
+                        </FrameLayout>
+
+                    </LinearLayout>
+                    <com.robinhood.ticker.TickerView
+                        android:id="@+id/views"
+                        android:layout_alignParentRight="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginRight="35dp"
+                        android:text="123"
+                        android:textColor="@color/grey_800"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:layout_alignParentRight="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="views"
+                        android:textColor="@color/grey_800"
+                        android:textSize="12sp" />
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+</LinearLayout>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textSize="35sp"
+        android:text="When setting the image for the image, there are two options: 1) Set it inside init() 2) Set it outside init()
+
+Both of these have very different functionality, so it is important to understand the difference.
+
+If you have a drawable included in your project or already have a bitmap loaded in memory, then it would be best to set the image inside of init(). This will cause the activity colors to change based off of the image and it will show the image when the activity is scrolling up from the bottom.
+
+If you need to load the image from a url or memory, you should not do this on the main thread. This means you need to set it after you've already initialized the activity. When doing this, the image will be animated in with a circular reveal animation (for lollipop+ users) or a fade in animation. Also, the activity will not look at the image and extract colors from it. It will instead use whatever colors you've set as your primary colors."/>
+
+</LinearLayout>

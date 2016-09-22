@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tabs>
+    <tab
+        id="@+id/tab_trending"
+        icon="@drawable/ic_trending_up_white_24dp"
+        title="Feed"
+        />
+    <tab
+        id="@+id/tab_explore"
+        icon="@drawable/ic_search_white_24dp"
+        title="Search"
+        barColorWhenSelected="@color/blue_A200"/>
+    <tab
+        id="@+id/tab_camera"
+        icon="@drawable/ic_camera_alt_white_24dp"
+        title="Camera"
+        barColorWhenSelected="@color/blue_grey_900" />
+    <tab
+        id="@+id/tab_notification"
+        icon="@drawable/ic_favorite_pink_a400_24dp"
+        title="Notification"
+        barColorWhenSelected="@color/pink_A200" />
+    <tab
+        id="@+id/tab_gallery"
+        icon="@drawable/ic_insert_photo_white_24dp"
+        title="Gallery"
+        barColorWhenSelected="@color/light_blue_A200" />
+</tabs>

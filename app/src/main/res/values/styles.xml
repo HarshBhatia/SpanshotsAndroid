@@ -1,0 +1,85 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/blue_grey_900</item>
+        <item name="colorPrimaryDark">@color/blue_grey_1000</item>
+        <item name="colorAccent">@color/pink_A400</item>
+        <!--<item name="content_background">@color/bgdark</item>-->
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <!--<item name="android:windowDrawsSystemBarBackgrounds">true</item>-->
+        <!--<item name="android:windowNoTitle">true</item>-->
+        <!--<item name="windowActionBar">false</item>-->
+        <!--<item name="android:windowTitleSize">0dp</item>-->
+
+    </style>
+    <style name="CardViewStyle" parent="android:Widget.TextView">
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+        <item name="cardCornerRadius">@dimen/card_corner_radius</item>
+        <!--<item name="cardElevation">@dimen/card_elevation</item>-->
+        <item name="cardPreventCornerOverlap">false</item>
+        <item name="cardUseCompatPadding">true</item>
+    </style>
+    <style name="Theme.Sliding.Light" parent="@style/Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="content_background">@color/light_background</item>
+        <item name="popup_theme">@style/ThemeOverlay.AppCompat.Light</item>
+    </style>
+    <style name="Theme.Sliding" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="content_background">@color/dark_background</item>
+        <item name="popup_theme">@style/ThemeOverlay.AppCompat</item>
+    </style>
+
+    <style name="Theme.Sliding.DayNight" parent="@style/Theme.AppCompat.DayNight.NoActionBar">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:windowAnimationStyle">@null</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="content_background">@color/light_background</item>
+        <item name="popup_theme">@style/ThemeOverlay.AppCompat.Light</item>
+    </style>
+
+    <style name="PurpleGreen" parent="AppTheme" >
+        <item name="colorPrimary">@color/purple_700</item>
+        <item name="colorPrimaryDark">@color/purple_800</item>
+        <item name="colorAccent">@color/green_A200</item>
+    </style>
+
+    <style name="BlueGreyPink" parent="AppTheme" >
+        <item name="colorPrimary">@color/blue_grey_800</item>
+        <item name="colorPrimaryDark">@color/blue_grey_900</item>
+        <item name="colorAccent">@color/pink_A400</item>
+        <item name="android:textColorPrimary">@color/white</item>
+        <item name="android:colorBackground">@color/black</item>
+    </style>
+
+    <style name="IndigoPink" parent="Theme.Sliding" >
+        <item name="colorPrimary">@color/indigo_500</item>
+        <item name="colorPrimaryDark">@color/indigo_700</item>
+        <item name="colorAccent">@color/pink_A200</item>
+        <item name="android:textColorPrimary">@color/white</item>
+    </style>
+
+
+</resources>
