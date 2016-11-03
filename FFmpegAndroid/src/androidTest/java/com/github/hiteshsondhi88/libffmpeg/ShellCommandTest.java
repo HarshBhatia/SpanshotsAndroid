@@ -8,7 +8,6 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class ShellCommandTest extends CommonTestCase {
 
@@ -47,6 +46,5 @@ public class ShellCommandTest extends CommonTestCase {
         CommandResult commandResult = shellCommand.runWaitFor(new String[] {"ls"});
         assertNotNull(commandResult);
         assertEquals(true, commandResult.success);
-        assertThat(commandResult.output).isNotEmpty();
     }
 }

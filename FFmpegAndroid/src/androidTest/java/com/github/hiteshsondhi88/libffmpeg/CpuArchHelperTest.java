@@ -4,7 +4,6 @@ import android.os.Build;
 
 import junit.framework.TestCase;
 
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class CpuArchHelperTest extends TestCase {
     
