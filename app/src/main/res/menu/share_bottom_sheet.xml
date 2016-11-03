@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/share_on_whatsapp"
+        android:icon="@drawable/ic_gif_grey_600_24dp"
+        android:title="Share on Whatsapp" />
+
+    <!--<item-->
+        <!--android:id="@+id/download_as_video"-->
+        <!--android:icon="@drawable/ic_file_download_grey_600_24dp"-->
+        <!--android:title="Download as Video" />-->
+
+    <item
+        android:id="@+id/copy"
+        android:icon="@drawable/ic_gif_grey_600_24dp"
+        android:title="Post GIF on Facebook" />
+    <item
+        android:id="@+id/share_link"
+        android:icon="@drawable/ic_share_grey_600_24dp"
+        android:title="Share Link" />
+    <item
+        android:id="@+id/copy_link"
+        android:icon="@drawable/ic_content_copy_grey_600_24dp"
+        android:title="Copy Link" />
+    <item
+        android:id="@+id/repost"
+        android:icon="@drawable/ic_repeat_grey_600_24dp"
+        android:title="Repost" />
+
+</menu>

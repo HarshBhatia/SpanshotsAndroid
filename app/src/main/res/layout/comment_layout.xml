@@ -5,6 +5,7 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/comment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
@@ -15,7 +16,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="top">
-
             <de.hdodenhof.circleimageview.CircleImageView
                 xmlns:app="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/comment_user_image"
@@ -30,7 +30,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="@+id/comment_user_image"
+
             android:layout_weight="1"
             android:orientation="vertical"
             android:paddingBottom="20dp"

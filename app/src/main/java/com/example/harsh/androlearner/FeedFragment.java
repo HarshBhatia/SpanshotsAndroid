@@ -5,28 +5,22 @@ package com.example.harsh.androlearner;
  */
 
 import android.content.Context;
-import android.graphics.PointF;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.app.ActionBar;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.LinearSmoothScroller;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView;
-import com.github.ksoichiro.android.observablescrollview.ObservableScrollViewCallbacks;
-import com.github.ksoichiro.android.observablescrollview.ScrollState;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.RequestParams;
 import com.loopj.android.http.TextHttpResponseHandler;
@@ -40,41 +34,78 @@ import java.util.List;
 
 import cz.msebera.android.httpclient.Header;
 
-public class FeedFragment extends Fragment implements ObservableScrollViewCallbacks {
-    private com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView recyclerView;
-    private List<Spanshot> spanshotList = new ArrayList<>();
-    private RecyclerView.LayoutManager mLayoutManager;
+public class FeedFragment extends Fragment {
+    private final List<Spanshot> spanshotList = new ArrayList<>();
     private SpanshotsAdapter mAdapter;
     private SwipeRefreshLayout mSwipeRefreshLayout;
-    private boolean feed_initalized = false;
+    private boolean feed_initialized = false;
+    private String LT_TIME, PROTO, NOP, REQUEST_USER_ID, PROFILE_USER_ID;
+    private LinearLayoutManager linearLayoutManager;
+
+    public static FeedFragment newInstance(String proto, String request_user_id, String profile_user_id) {
+        FeedFragment f = new FeedFragment();
+        if (request_user_id == null) {
+            Log.d("AmazeLogs", "Empty access token, generating fresh feed.");
+        }
+        Bundle args = new Bundle();
+        args.putString("proto", proto);
+        args.putString("request_user_id", request_user_id);
+        args.putString("profile_user_id", profile_user_id);
+        f.setArguments(args);
+
+        return f;
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        Log.d("AmazeLogs", this.getClass().getSimpleName() + " view created");
         return inflater.inflate(R.layout.feed_view, container, false);
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
+        Log.d("AmazeLogs", this.getClass().getSimpleName() + " activity created");
         super.onActivityCreated(savedInstanceState);
-        // Inflate the layout for this fragment
-        // View elements declarations
-        ObservableRecyclerView recyclerView = (ObservableRecyclerView) getView().findViewById(R.id.recycler_view);
 
-        recyclerView.setScrollViewCallbacks(this);
-        if (!isNetworkAvailable()) {
-            return;
-        }
-
+        //Inits
         mSwipeRefreshLayout = (SwipeRefreshLayout) getView().findViewById(R.id.activity_main_swipe_refresh_layout);
-        recyclerView = (com.github.ksoichiro.android.observablescrollview.ObservableRecyclerView) getView().findViewById(R.id.recycler_view);
-
+        mAdapter = new SpanshotsAdapter(getActivity(), spanshotList);
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext(), LinearLayoutManager.VERTICAL, false);
+//        mHeaderView = getActivity().findViewById(R.id.loading);
+        ObservableRecyclerView recyclerView = (ObservableRecyclerView) getView().findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
-        mAdapter = new SpanshotsAdapter(getActivity().getApplicationContext(), spanshotList);
-        mLayoutManager = new LinearLayoutManager(getActivity().getApplicationContext());
         recyclerView.setLayoutManager(mLayoutManager);
         recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setAdapter(mAdapter);
+
+        LT_TIME = Long.toString(System.currentTimeMillis());
+        Log.d("AmazeLogs","Init LT TIME");
+        
+        PROTO = getArguments().getString("proto");
+        REQUEST_USER_ID = getArguments().getString("request_user_id");
+        PROFILE_USER_ID = getArguments().getString("profile_user_id");
+        NOP = "15";
+
+        //Lazy Load
+        linearLayoutManager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(linearLayoutManager);
+        // Add the scroll listener
+        recyclerView.addOnScrollListener(new EndlessRecyclerViewScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount) {
+                Log.d("AmazeLogsLM",LT_TIME);
+                long temp = Long.parseLong(LT_TIME);
+                temp = temp +1;
+                Log.d("AmazeLogsLM",Long.toString(temp));
+                
+                // Triggered only when new data needs to be appended to the list
+                // Add whatever code is needed to append new items to the bottom of the list
+                Log.d("AmazeLogs", "Loading more data...");
+                prepareSpanshots(PROTO, Long.toString(temp), NOP, REQUEST_USER_ID, PROFILE_USER_ID);
+            }
+        });
 
         // Swipe to refresh
         mSwipeRefreshLayout.setColorSchemeResources(R.color.orange_500, R.color.green_500, R.color.blue_500);
@@ -84,7 +115,11 @@ public class FeedFragment extends Fragment implements ObservableScrollViewCallba
                 new Handler().postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        Snackbar.make(getView(), "Spanhshots Refresh Complete!", Snackbar.LENGTH_SHORT);
+                        Log.d("AmazeLogs", "Refershed!");
+                        Toast.makeText(getActivity().getApplicationContext(), "Refresh Complete", Toast.LENGTH_LONG).show();
+                        spanshotList.clear();
+                        prepareSpanshots(PROTO, Long.toString(System.currentTimeMillis()), NOP, REQUEST_USER_ID, PROFILE_USER_ID);
+                        linearLayoutManager.scrollToPositionWithOffset(0, 0);
                         mSwipeRefreshLayout.setRefreshing(false);
                     }
                 }, 2500);
@@ -93,35 +128,36 @@ public class FeedFragment extends Fragment implements ObservableScrollViewCallba
 
 
         //onCreate Calls
-        if (!feed_initalized) {
-            long time = System.currentTimeMillis();
-            prepareSpanshots("fresh", Long.toString(time), "15");
-            feed_initalized = true;
+        if (!feed_initialized) {
+            prepareSpanshots(PROTO, LT_TIME, NOP, REQUEST_USER_ID, PROFILE_USER_ID);
+            long temp = (Long.parseLong(LT_TIME)+100);
+            temp = temp + 100;
+            LT_TIME = Long.toString(temp);
+            feed_initialized = true;
         }
+
 
     }
 
-    public void prepareSpanshots(String proto, String lt_time, String nop) {
-        //Sample Spanshot
-//        Spanshot s = new Spanshot("Hello World", "John Wow", "http://slodive.com/wp-content/uploads/2012/10/funny-dog-pictures/stylish-funny-dog.jpg", "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4", "posthash", false, "123", true, false, "12345", );
-//        Spanshot s2 = new Spanshot("Hello World", "John Wow", "http://slodive.com/wp-content/uploads/2012/10/funny-dog-pictures/stylish-funny-dog.jpg", "http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4", "posthash", false, "123", false, true);
-//        spanshotList.add(s);
-//        spanshotList.add(s2);
-//        spanshotList.remove(s);
-//        mAdapter.notifyDataSetChanged();
-
+    private void prepareSpanshots(String proto, String lt_time, String nop, String request_user_id, String profile_user_id) {
+        Log.d("AmazeLogs", "prepareSpanshotsCalled");
         //AJAX Client
         AsyncHttpClient client = new AsyncHttpClient();
         String url = "http://spanshots.com/get_posts";
         RequestParams params = new RequestParams();
         params.put("proto", proto);
         params.put("lt_time", lt_time);
+        params.put("user_id", request_user_id);
+        params.put("userId", profile_user_id);
         params.put("nop", nop);
 
         //Start POST Request
         client.post(url, params, new TextHttpResponseHandler() {
                     @Override
                     public void onSuccess(int statusCode, Header[] headers, String res) {
+                        Log.d("AmazeLogs","New results");
+
+                        mAdapter.notifyDataSetChanged();
                         JSONArray jsonarray = null;
                         try {
                             jsonarray = new JSONArray(res);
@@ -140,11 +176,14 @@ public class FeedFragment extends Fragment implements ObservableScrollViewCallba
                             String user_name = null;
                             String user_id = null;
                             String files_jpg = null;
+                            String files_vid = null;
                             String files_mp4 = null;
                             String ph = null;
                             String views = null;
+                            String upload_time;
                             JSONArray comments = null;
                             JSONArray likes = null;
+                            Boolean is_liked = false;
 
                             try {
                                 caption = jsonobject.getString("caption");
@@ -156,12 +195,24 @@ public class FeedFragment extends Fragment implements ObservableScrollViewCallba
                                 likes = jsonobject.getJSONArray("likes");
                                 files_jpg = files.get("jpg").toString();
                                 files_mp4 = files.get("mp4").toString();
+                                files_vid = files.get("vid").toString();
                                 views = jsonobject.getString("views");
+                                Log.d("AmazeLogs", "From Fragment: The view count of" + caption + " is " + views);
 
+                                upload_time = jsonobject.getString("upload_time");
+                                Log.d("AmazeLogs", likes.toString());
+                                if (likes.toString().contains("\"from_id\":\"" + REQUEST_USER_ID + "\"")) {
+                                    is_liked = true;
+                                }
+                                if (i == (jsonarray.length() - 1)) {
+                                    Log.d("AmazeLogsU","Updating lt time!");
+
+                                    LT_TIME = upload_time;
+                                }
                             } catch (JSONException e) {
                                 e.printStackTrace();
                             }
-                            Spanshot s = new Spanshot(caption, user_name, "http://spanshots.com/static/files_uploaded/" + files_jpg, "http://spanshots.com/static/files_uploaded/" + files_mp4, ph, false, views, false, false,user_id,comments,likes);
+                            Spanshot s = new Spanshot(caption, user_name, "http://spanshots.com/static/files_uploaded/" + files_jpg, "http://spanshots.com/static/files_uploaded/" + files_mp4, "http://spanshots.com/static/files_uploaded/" + files_vid, ph, is_liked, views, false, false, user_id, comments, likes);
                             spanshotList.add(s);
                             mAdapter.notifyDataSetChanged();
                         }
@@ -172,80 +223,23 @@ public class FeedFragment extends Fragment implements ObservableScrollViewCallba
                     @Override
                     public void onFailure(int statusCode, Header[] headers, String res, Throwable t) {
                         // called when response HTTP status is "4XX" (eg. 401, 403, 404)
-
+                        Log.d("AmazeLogs", "No connection");
+                        Spanshot offline = new Spanshot("null", "null", "null", "null", "null", "null", false, "null", false, true, "null", null, null);
+                        spanshotList.add(offline);
+                        mAdapter.notifyDataSetChanged();
                     }
                 }
         );
-
-
     }
 
-//    public class LinearLayoutManagerWithSmoothScroller extends LinearLayoutManager {
-//        public LinearLayoutManagerWithSmoothScroller(Context context) {
-//            super(context, VERTICAL, false);
-//        }
-//
-//        public LinearLayoutManagerWithSmoothScroller(Context context, int orientation, boolean reverseLayout) {
-//            super(context, orientation, reverseLayout);
-//        }
-//
-//        @Override
-//        public void smoothScrollToPosition(RecyclerView recyclerView, RecyclerView.State state,
-//                                           int position) {
-//            RecyclerView.SmoothScroller smoothScroller = new TopSnappedSmoothScroller(recyclerView.getContext());
-//            smoothScroller.setTargetPosition(position);
-//            startSmoothScroll(smoothScroller);
-//        }
-//
-//        private class TopSnappedSmoothScroller extends LinearSmoothScroller {
-//            public TopSnappedSmoothScroller(Context context) {
-//                super(context);
-//
-//            }
-//
-//            @Override
-//            public PointF computeScrollVectorForPosition(int targetPosition) {
-//                return LinearLayoutManagerWithSmoothScroller.this
-//                        .computeScrollVectorForPosition(targetPosition);
-//            }
-//
-//            @Override
-//            protected int getVerticalSnapPreference() {
-//                return SNAP_TO_START;
-//            }
-//        }
-//    }
 
     //Check if connected
     boolean isNetworkAvailable() {
         ConnectivityManager cm = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
 
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
-        boolean isConnected = activeNetwork != null && activeNetwork.isConnectedOrConnecting();
-        return isConnected;
-    }
-    @Override
-    public void onScrollChanged(int scrollY, boolean firstScroll, boolean dragging) {
+        return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
     }
 
-    @Override
-    public void onDownMotionEvent() {
-    }
 
-    @Override
-    public void onUpOrCancelMotionEvent(ScrollState scrollState) {
-        ActionBar ab = ((AppCompatActivity)getActivity()).getSupportActionBar();
-        if (ab == null) {
-            return;
-        }
-        if (scrollState == ScrollState.UP) {
-            if (ab.isShowing()) {
-                ab.hide();
-            }
-        } else if (scrollState == ScrollState.DOWN) {
-            if (!ab.isShowing()) {
-                ab.show();
-            }
-        }
-    }
 }

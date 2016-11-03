@@ -1,32 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="1">
+    android:weightSum="1"
+    android:layout_marginTop="30dp">
 
-    <FrameLayout
-    android:id="@+id/toolbar_container"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="24dp">
-
-    <android.support.v7.widget.Toolbar
-    android:id="@+id/toolbar"
-    android:layout_width="match_parent"
-    android:layout_height="?attr/actionBarSize"
-    android:background="@color/cyan_900"
-    />
-
-    <com.miguelcatalan.materialsearchview.MaterialSearchView
-    android:id="@+id/search_view"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:textColor="@color/black"/>
-    </FrameLayout>
-    <TextView
+    <com.mancj.materialsearchbar.MaterialSearchBar
+        app:speechMode="true"
+        app:hint="Custom hint"
+        app:maxSuggestionsCount="10"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Explore Fragment!"
-        android:textSize="50dp"
-        android:paddingTop="100dp"/>
+        android:layout_height="wrap_content"
+        android:id="@+id/searchBar" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/search_recycler_view"
+        android:nestedScrollingEnabled="true"
+
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
 </LinearLayout>

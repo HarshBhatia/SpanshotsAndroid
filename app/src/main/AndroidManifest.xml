@@ -1,19 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.harsh.androlearner">
-    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -21,25 +27,43 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.afollestad.materialcamera.CaptureActivity"
-            android:theme="@style/MaterialCamera.CaptureActivity" />
+            android:name=".SpanshotsIntroActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.Intro" />
         <activity
-            android:name="com.afollestad.materialcamera.CaptureActivity2"
-            android:theme="@style/MaterialCamera.CaptureActivity" />
-        <activity android:name=".SpanshotsIntroActivity"
-            android:theme="@style/Theme.Intro"/>
-        <activity android:name=".CommentsActivity"
+            android:name=".LikesActivity"
             android:excludeFromRecents="true"
             android:taskAffinity=""
-            android:theme="@style/Theme.Sliding.Light"/>
-        <activity android:name=".LikesActivity"
+            android:theme="@style/Theme.Sliding.Light" />
+        <activity
+            android:name=".UserActivity"
             android:excludeFromRecents="true"
+            android:screenOrientation="portrait"
             android:taskAffinity=""
-            android:theme="@style/Theme.Sliding.Light"/>
-        <activity android:name=".UserActivity"
-            android:excludeFromRecents="true"
-            android:taskAffinity=""
-            android:theme="@style/Theme.Sliding.Light"/>
+            android:theme="@style/Theme.Sliding.Light" />
+        <activity
+            android:name=".CommentsActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeComment"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".Home"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppThemeComment" />
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:screenOrientation="portrait"
+                android:value="com.example.harsh.androlearner.MainActivity" />
+        </activity>
+        <activity android:name=".AboutActivity" />
+        <activity android:name=".ProfileActivity" />
+        <activity android:name=".FfmpegActivity" />
+        <activity android:name=".PolaroidSampleActivity"></activity>
     </application>
 
 </manifest>

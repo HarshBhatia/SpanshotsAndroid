@@ -38,7 +38,8 @@ public class LikesAdapter extends RecyclerView.Adapter<LikesAdapter.ViewHolder> 
     }
 
     // Provide a suitable constructor (depends on the kind of dataset)
-    public LikesAdapter(List<Like> myDataset) {
+    public LikesAdapter(Context context,List<Like> myDataset) {
+        this.context = context;
         likeList = myDataset;
     }
 
@@ -63,7 +64,7 @@ public class LikesAdapter extends RecyclerView.Adapter<LikesAdapter.ViewHolder> 
         Like c = likeList.get(position);
         holder.like_user_name.setText(c.get_like_user_name());
 
-        String profile_picture_uri = "http://graph.facebook.com/"+c.get_like_user_id()+ "/picture?type=square";
+        String profile_picture_uri = "https://graph.facebook.com/"+c.get_like_user_id()+ "/picture?width=100&height=100";
         Log.d("AmazeLogs",profile_picture_uri);
         Picasso.with(context).load(profile_picture_uri).placeholder(R.drawable.doge).fit().centerCrop().into(holder.like_user_image);
 

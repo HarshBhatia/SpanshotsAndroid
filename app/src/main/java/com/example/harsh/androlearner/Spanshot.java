@@ -7,26 +7,38 @@ import org.json.JSONArray;
  */
 
 public class Spanshot {
-    private String caption, files_jpg, user_name, files_mp4, ph, views, user_id;
-    private Boolean is_liked, is_header, is_footer;
-    private JSONArray likes, comments;
+    public String caption, files_jpg, user_name, files_mp4, files_vid, ph, views, user_id;
+    public Boolean is_liked;
+    public Boolean is_loading;
+    public Boolean is_disconnected;
 
-    public Spanshot() {
+    public Boolean get_is_playing() {
+        return is_playing;
     }
 
-    public Spanshot(String caption, String user_name, String files_jpg, String files_mp4, String ph, Boolean is_liked, String views, Boolean is_header, Boolean is_footer, String user_id, JSONArray comments, JSONArray likes) {
+    public void set_is_playing(Boolean is_playing) {
+        this.is_playing = is_playing;
+    }
+
+    public Boolean is_playing;
+    public JSONArray likes, comments;
+
+
+    public Spanshot(String caption, String user_name, String files_jpg, String files_mp4, String files_vid, String ph, Boolean is_liked, String views, Boolean is_loading, Boolean is_disconnected, String user_id, JSONArray comments, JSONArray likes) {
         this.caption = caption;
         this.user_name = user_name;
         this.files_jpg = files_jpg;
         this.files_mp4 = files_mp4;
+        this.files_vid = files_vid;
         this.is_liked = is_liked;
         this.ph = ph;
         this.views = views;
-        this.is_header = is_header;
-        this.is_footer = is_footer;
+        this.is_loading = is_loading;
+        this.is_disconnected = is_disconnected;
         this.user_id = user_id;
         this.likes = likes;
         this.comments = comments;
+        this.is_playing = false;
 
     }
 
@@ -43,11 +55,16 @@ public class Spanshot {
     }
 
     public String get_files_jpg() {
+
         return files_jpg;
     }
 
     public String get_files_mp4() {
         return files_mp4;
+    }
+
+    public String get_files_vid() {
+        return files_vid;
     }
 
     public String get_ph() {
@@ -58,7 +75,19 @@ public class Spanshot {
         return is_liked;
     }
 
+    public void set_is_liked(Boolean v) {
+        is_liked = v;
+    }
+
+    public void set_views(String v) {
+        views = v;
+    }
+
     public String get_views() {
+
+        if (views == null || views.isEmpty() || views == "" || views == "null") {
+            views = "0";
+        }
         return views;
     }
 
@@ -70,11 +99,11 @@ public class Spanshot {
         return comments;
     }
 
-    public Boolean isHeader() {
-        return is_header;
+    public Boolean isLoading() {
+        return is_loading;
     }
 
-    public Boolean isFooter() {
-        return is_footer;
+    public Boolean isDisconnected() {
+        return is_disconnected;
     }
 }

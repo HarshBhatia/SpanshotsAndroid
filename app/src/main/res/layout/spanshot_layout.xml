@@ -33,7 +33,6 @@
                     android:id="@+id/files_mp4"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:onClick="videoPlayFromVideo"
                     android:drawingCacheQuality="low"
                     android:layout_gravity="center"
                     />
@@ -42,8 +41,8 @@
                     android:foregroundGravity="center"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:onClick="videoPlayFromImage"
                     android:layout_gravity="center"
+                    android:clickable="true"
                     />
                 <ProgressBar
                     android:layout_width="wrap_content"
@@ -68,7 +67,6 @@
 
                     <TextView
                         android:id="@+id/username"
-                        android:onClick="viewUser"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
@@ -76,7 +74,7 @@
                         android:paddingRight="49dp"
                         android:paddingTop="16dp"
                         android:text="John Wow"
-                        android:textColor="@color/light_blue_A400"
+                        android:textColor="@color/light_blue_A700"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
@@ -92,15 +90,21 @@
                             android:layout_height="wrap_content"
                             android:paddingLeft="8dp"
                             android:paddingTop="16dp"
-                            android:text=" 21 Likes  ·  "
-                            android:onClick="viewLikes"
+                            android:text="21 Likes"
+                            android:textColor="@color/grey_600"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:paddingTop="16dp"
+                            android:text="  ·  "
                             android:textColor="@color/grey_600"
                             android:textSize="14sp" />
 
                         <TextView
                             android:id="@+id/comments_count"
                             android:layout_width="wrap_content"
-                            android:onClick="viewComments"
                             android:layout_height="wrap_content"
                             android:paddingRight="16dp"
                             android:paddingTop="16dp"
@@ -117,18 +121,22 @@
                     android:layout_height="wrap_content"
                     android:paddingLeft="16dp"
                     android:paddingTop="16dp"
+                    android:paddingBottom="8dp"
                     android:text="Hum toh thehre bakru jee ssath kya nibhaayenge lorem lorem"
                     android:textColor="@color/grey_800"
                     android:textSize="14sp" />
 
-
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/grey_200" />
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:paddingBottom="8dp"
                     android:paddingLeft="16dp"
                     android:paddingRight="16dp"
-                    android:paddingTop="16dp">
+                    android:paddingTop="8dp">
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
@@ -144,14 +152,10 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="left"
                                 android:background="@drawable/ripple"
-
-
                                 android:clickable="true"
-
-                                android:onClick="likeSpanshot"
                                 android:padding="4dp"
 
-                                android:src="@drawable/ic_favorite_pink_a400_24dp" />
+                                android:src="@drawable/ic_favorite_border_pink_a400_24dp" />
                         </FrameLayout>
 
                         <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -165,10 +169,9 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="left"
                                 android:layout_marginLeft="10dp"
-                                android:background="@drawable/ripple"
                                 android:clickable="true"
+                                android:background="@drawable/ripple"
                                 android:padding="4dp"
-                                android:onClick="viewComments"
                                 android:src="@drawable/ic_comment_light_blue_a400_24dp" />
                         </FrameLayout>
 
@@ -186,34 +189,10 @@
                                 android:layout_gravity="left"
                                 android:layout_marginLeft="10dp"
                                 android:background="@drawable/ripple"
-
                                 android:clickable="true"
-                                android:onClick="shareSpanshot"
                                 android:padding="4dp"
-                                android:src="@drawable/ic_share_grey_400_24dp" />
+                                android:src="@drawable/ic_share_grey_500_24dp" />
                         </FrameLayout>
-                        <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="left"
-
-                            >
-
-                            <ImageView
-                                android:id="@+id/more_options_button"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="left"
-                                android:layout_marginLeft="10dp"
-                                android:background="@drawable/ripple"
-
-                                android:clickable="true"
-                                android:onClick="showMoreOptions"
-                                android:padding="4dp"
-                                android:visibility="invisible"
-                                android:src="@drawable/ic_more_horiz_grey_600_24dp" />
-                        </FrameLayout>
-
                     </LinearLayout>
                     <com.robinhood.ticker.TickerView
                         android:id="@+id/views"
