@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="30sp"
+        android:text="This the preview!"/>
+    <VideoView
+        android:layout_width="match_parent"
+        android:id="@+id/video_preview"
+        android:layout_height="wrap_content" />
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_gravity="bottom"
+        android:layout_height="120.0dip"
+        android:paddingTop="5dip"
+        android:paddingBottom="5dip"
+        android:layout_alignParentBottom="true"
+        android:background="@android:color/white">
+        <ImageView
+            android:id="@+id/btn_camera_beauty"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1.0"
+            android:src="@drawable/ic_gif_grey_600_24dp"
+            android:scaleType="center">
+        </ImageView>
+        <ImageView
+            android:padding="25dp"
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1.0"
+            android:id="@+id/share_button"
+            android:src="@drawable/ic_share_grey_600_36dp">
+        </ImageView>
+        <ImageView
+            android:layout_width="0dip"
+            android:layout_height="match_parent"
+            android:layout_weight="1.0"
+            android:scaleType="center"
+            android:id="@+id/btn_camera_filter"
+            android:src="@drawable/ic_text_fields_grey_600_24dp">
+        </ImageView>
+    </LinearLayout>
+    </FrameLayout>
+
+</LinearLayout>

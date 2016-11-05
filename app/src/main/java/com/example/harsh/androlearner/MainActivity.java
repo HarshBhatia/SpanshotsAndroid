@@ -76,7 +76,7 @@ public class MainActivity extends AppCompatActivity {
                     fragNavController.switchTab(TAB_FEED);
                 }
                 if (tabId == R.id.tab_camera) {
-                   Intent intent = new Intent(MainActivity.this,PolaroidSampleActivity.class);
+                   Intent intent = new Intent(MainActivity.this,SpanshotActivity.class);
                     startActivity(intent);
                 }
             }
